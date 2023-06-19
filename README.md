@@ -12,20 +12,20 @@ Find out more about Swagger: [http://swagger.io](http://swagger.io)
 Install the gem from the command line:
 
 ```ruby
-gem install repo-test-sdk -v 2.3.5
+gem install repo-test-sdk -v 2.3.6
 ```
 
 Or add the gem to your Gemfile and run `bundle`:
 
 ```ruby
-gem 'repo-test-sdk', '2.3.5'
+gem 'repo-test-sdk', '2.3.6'
 ```
 
-For additional gem details, see the [RubyGems page for the repo-test-sdk gem](https://rubygems.org/gems/repo-test-sdk/versions/2.3.5).
+For additional gem details, see the [RubyGems page for the repo-test-sdk gem](https://rubygems.org/gems/repo-test-sdk/versions/2.3.6).
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -58,13 +58,13 @@ This API uses `Custom Authentication`.
 
 ## List of APIs
 
-* [Pet](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/controllers/pet.md)
-* [Store](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/controllers/store.md)
-* [User](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/controllers/user.md)
+* [Pet](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/controllers/pet.md)
+* [Store](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/controllers/store.md)
+* [User](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/controllers/user.md)
 
 ## Classes Documentation
 
-* [Utility Classes](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/utility-classes.md)
-* [HttpResponse](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/http-response.md)
-* [HttpRequest](https://www.github.com/sdks-io/ruby/tree/2.3.5/doc/http-request.md)
+* [Utility Classes](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/utility-classes.md)
+* [HttpResponse](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/http-response.md)
+* [HttpRequest](https://www.github.com/sdks-io/ruby/tree/2.3.6/doc/http-request.md)
 
