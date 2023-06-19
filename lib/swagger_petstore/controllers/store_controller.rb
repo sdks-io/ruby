@@ -29,21 +29,6 @@ module SwaggerPetstore
         .execute
     end
 
-    # Returns a map of status codes to quantities
-    # @return [Hash of Integer] response from the API call
-    def get_inventory
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::GET,
-                                     '/store/inventory',
-                                     Server::SERVER1)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .deserializer(APIHelper.method(:deserialize_primitive_types))
-                   .deserialize_into(proc do |response| response.to_i end)
-                   .is_primitive_response(true))
-        .execute
-    end
-
     # For valid response try integer IDs with value >= 1 and <= 10. Other values
     # will generated exceptions
     # @param [Integer] order_id Required parameter: ID of pet that needs to be
@@ -91,6 +76,21 @@ module SwaggerPetstore
                    .local_error('404',
                                 'Order not found',
                                 APIException))
+        .execute
+    end
+
+    # Returns a map of status codes to quantities
+    # @return [Hash of Integer] response from the API call
+    def get_inventory
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::GET,
+                                     '/store/inventory',
+                                     Server::SERVER1)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .deserializer(APIHelper.method(:deserialize_primitive_types))
+                   .deserialize_into(proc do |response| response.to_i end)
+                   .is_primitive_response(true))
         .execute
     end
   end

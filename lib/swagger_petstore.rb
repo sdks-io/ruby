@@ -28,15 +28,15 @@ require_relative 'swagger_petstore/http/auth/custom_auth'
 
 # Models
 require_relative 'swagger_petstore/models/base_model'
-require_relative 'swagger_petstore/models/pet'
 require_relative 'swagger_petstore/models/api_response'
 require_relative 'swagger_petstore/models/category'
-require_relative 'swagger_petstore/models/order'
+require_relative 'swagger_petstore/models/pet'
 require_relative 'swagger_petstore/models/tag'
+require_relative 'swagger_petstore/models/order'
 require_relative 'swagger_petstore/models/user'
+require_relative 'swagger_petstore/models/status_enum'
 require_relative 'swagger_petstore/models/status1_enum'
 require_relative 'swagger_petstore/models/status2_enum'
-require_relative 'swagger_petstore/models/status_enum'
 
 # Exceptions
 require_relative 'swagger_petstore/exceptions/api_exception'

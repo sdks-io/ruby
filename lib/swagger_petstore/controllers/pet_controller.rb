@@ -6,27 +6,6 @@
 module SwaggerPetstore
   # PetController
   class PetController < BaseController
-    # Add a new pet to the store
-    # @param [Pet] body Required parameter: Pet object that needs to be added to
-    # the store
-    # @return [void] response from the API call
-    def inpet(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/pet',
-                                     Server::SERVER1)
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('405',
-                                'Invalid input',
-                                APIException))
-        .execute
-    end
-
     # uploads an image
     # @param [Integer] pet_id Required parameter: ID of pet to update
     # @param [String] additional_metadata Optional parameter: Additional data to
@@ -50,6 +29,27 @@ module SwaggerPetstore
         .response(new_response_handler
                    .deserializer(APIHelper.method(:custom_type_deserializer))
                    .deserialize_into(ApiResponse.method(:from_hash)))
+        .execute
+    end
+
+    # Add a new pet to the store
+    # @param [Pet] body Required parameter: Pet object that needs to be added to
+    # the store
+    # @return [void] response from the API call
+    def inpet(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/pet',
+                                     Server::SERVER1)
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('405',
+                                'Invalid input',
+                                APIException))
         .execute
     end
 
@@ -149,31 +149,6 @@ module SwaggerPetstore
         .execute
     end
 
-    # Deletes a pet
-    # @param [Integer] pet_id Required parameter: Pet id to delete
-    # @param [String] api_key Optional parameter: Example:
-    # @return [void] response from the API call
-    def delete_pet(pet_id,
-                   api_key: nil)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::DELETE,
-                                     '/pet/{petId}',
-                                     Server::SERVER1)
-                   .template_param(new_parameter(pet_id, key: 'petId')
-                                    .should_encode(true))
-                   .header_param(new_parameter(api_key, key: 'api_key'))
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('400',
-                                'Invalid ID supplied',
-                                APIException)
-                   .local_error('404',
-                                'Pet not found',
-                                APIException))
-        .execute
-    end
-
     # Updates a pet in the store with form data
     # @param [Integer] pet_id Required parameter: ID of pet that needs to be
     # updated
@@ -197,6 +172,31 @@ module SwaggerPetstore
                    .is_response_void(true)
                    .local_error('405',
                                 'Invalid input',
+                                APIException))
+        .execute
+    end
+
+    # Deletes a pet
+    # @param [Integer] pet_id Required parameter: Pet id to delete
+    # @param [String] api_key Optional parameter: Example:
+    # @return [void] response from the API call
+    def delete_pet(pet_id,
+                   api_key: nil)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::DELETE,
+                                     '/pet/{petId}',
+                                     Server::SERVER1)
+                   .template_param(new_parameter(pet_id, key: 'petId')
+                                    .should_encode(true))
+                   .header_param(new_parameter(api_key, key: 'api_key'))
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('400',
+                                'Invalid ID supplied',
+                                APIException)
+                   .local_error('404',
+                                'Pet not found',
                                 APIException))
         .execute
     end

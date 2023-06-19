@@ -26,6 +26,26 @@ module SwaggerPetstore
         .execute
     end
 
+    # Creates list of users with given input array
+    # @param [List of User] body Required parameter: List of user object
+    # @return [void] response from the API call
+    def create_users_with_list_input(body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::POST,
+                                     '/user/createWithList',
+                                     Server::SERVER1)
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('default',
+                                'successful operation',
+                                APIException))
+        .execute
+    end
+
     # Get user by user name
     # @param [String] username Required parameter: The name that needs to be
     # fetched. Use user1 for testing.
@@ -44,6 +64,34 @@ module SwaggerPetstore
                    .deserialize_into(User.method(:from_hash))
                    .local_error('400',
                                 'Invalid username supplied',
+                                APIException)
+                   .local_error('404',
+                                'User not found',
+                                APIException))
+        .execute
+    end
+
+    # This can only be done by the logged in user.
+    # @param [String] username Required parameter: name that need to be
+    # updated
+    # @param [User] body Required parameter: Updated user object
+    # @return [void] response from the API call
+    def update_user(username,
+                    body)
+      new_api_call_builder
+        .request(new_request_builder(HttpMethodEnum::PUT,
+                                     '/user/{username}',
+                                     Server::SERVER1)
+                   .template_param(new_parameter(username, key: 'username')
+                                    .should_encode(true))
+                   .body_param(new_parameter(body))
+                   .header_param(new_parameter('application/json', key: 'Content-Type'))
+                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
+                   .auth(Single.new('global')))
+        .response(new_response_handler
+                   .is_response_void(true)
+                   .local_error('400',
+                                'Invalid user supplied',
                                 APIException)
                    .local_error('404',
                                 'User not found',
@@ -94,54 +142,6 @@ module SwaggerPetstore
                    .is_primitive_response(true)
                    .local_error('400',
                                 'Invalid username/password supplied',
-                                APIException))
-        .execute
-    end
-
-    # Creates list of users with given input array
-    # @param [List of User] body Required parameter: List of user object
-    # @return [void] response from the API call
-    def create_users_with_list_input(body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::POST,
-                                     '/user/createWithList',
-                                     Server::SERVER1)
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('default',
-                                'successful operation',
-                                APIException))
-        .execute
-    end
-
-    # This can only be done by the logged in user.
-    # @param [String] username Required parameter: name that need to be
-    # updated
-    # @param [User] body Required parameter: Updated user object
-    # @return [void] response from the API call
-    def update_user(username,
-                    body)
-      new_api_call_builder
-        .request(new_request_builder(HttpMethodEnum::PUT,
-                                     '/user/{username}',
-                                     Server::SERVER1)
-                   .template_param(new_parameter(username, key: 'username')
-                                    .should_encode(true))
-                   .body_param(new_parameter(body))
-                   .header_param(new_parameter('application/json', key: 'Content-Type'))
-                   .body_serializer(proc do |param| param.to_json unless param.nil? end)
-                   .auth(Single.new('global')))
-        .response(new_response_handler
-                   .is_response_void(true)
-                   .local_error('400',
-                                'Invalid user supplied',
-                                APIException)
-                   .local_error('404',
-                                'User not found',
                                 APIException))
         .execute
     end

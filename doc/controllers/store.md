@@ -13,9 +13,9 @@ store_controller = client.store
 ## Methods
 
 * [Place Order](../../doc/controllers/store.md#place-order)
-* [Get Inventory](../../doc/controllers/store.md#get-inventory)
 * [Get Order by Id](../../doc/controllers/store.md#get-order-by-id)
 * [Delete Order](../../doc/controllers/store.md#delete-order)
+* [Get Inventory](../../doc/controllers/store.md#get-inventory)
 
 
 # Place Order
@@ -56,25 +56,6 @@ result = store_controller.place_order(body)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Invalid Order | `APIException` |
-
-
-# Get Inventory
-
-Returns a map of status codes to quantities
-
-```ruby
-def get_inventory
-```
-
-## Response Type
-
-`Hash of Integer`
-
-## Example Usage
-
-```ruby
-result = store_controller.get_inventory
-```
 
 
 # Get Order by Id
@@ -143,4 +124,23 @@ store_controller.delete_order(order_id)
 |  --- | --- | --- |
 | 400 | Invalid ID supplied | `APIException` |
 | 404 | Order not found | `APIException` |
+
+
+# Get Inventory
+
+Returns a map of status codes to quantities
+
+```ruby
+def get_inventory
+```
+
+## Response Type
+
+`Hash of Integer`
+
+## Example Usage
+
+```ruby
+result = store_controller.get_inventory
+```
 

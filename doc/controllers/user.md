@@ -15,11 +15,11 @@ user_controller = client.user
 ## Methods
 
 * [Create Users With Array Input](../../doc/controllers/user.md#create-users-with-array-input)
+* [Create Users With List Input](../../doc/controllers/user.md#create-users-with-list-input)
 * [Get User by Name](../../doc/controllers/user.md#get-user-by-name)
+* [Update User](../../doc/controllers/user.md#update-user)
 * [Delete User](../../doc/controllers/user.md#delete-user)
 * [Login User](../../doc/controllers/user.md#login-user)
-* [Create Users With List Input](../../doc/controllers/user.md#create-users-with-list-input)
-* [Update User](../../doc/controllers/user.md#update-user)
 * [Logout User](../../doc/controllers/user.md#logout-user)
 * [Create User](../../doc/controllers/user.md#create-user)
 
@@ -68,6 +68,50 @@ user_controller.create_users_with_array_input(body)
 | Default | successful operation | `APIException` |
 
 
+# Create Users With List Input
+
+Creates list of users with given input array
+
+```ruby
+def create_users_with_list_input(body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Array<User>`](../../doc/models/user.md) | Body, Required | List of user object |
+
+## Response Type
+
+`void`
+
+## Example Usage
+
+```ruby
+body = [
+  User.new(
+    nil,
+    nil,
+    nil,
+    nil,
+    nil,
+    nil,
+    nil,
+    nil
+  )
+]
+
+user_controller.create_users_with_list_input(body)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | successful operation | `APIException` |
+
+
 # Get User by Name
 
 Get user by user name
@@ -99,6 +143,56 @@ result = user_controller.get_user_by_name(username)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Invalid username supplied | `APIException` |
+| 404 | User not found | `APIException` |
+
+
+# Update User
+
+This can only be done by the logged in user.
+
+```ruby
+def update_user(username,
+                body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `username` | `String` | Template, Required | name that need to be updated |
+| `body` | [`User`](../../doc/models/user.md) | Body, Required | Updated user object |
+
+## Response Type
+
+`void`
+
+## Example Usage
+
+```ruby
+username = 'username0'
+
+body = User.new(
+  nil,
+  nil,
+  nil,
+  nil,
+  nil,
+  nil,
+  nil,
+  nil
+)
+
+user_controller.update_user(
+  username,
+  body
+)
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Invalid user supplied | `APIException` |
 | 404 | User not found | `APIException` |
 
 
@@ -174,100 +268,6 @@ result = user_controller.login_user(
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Invalid username/password supplied | `APIException` |
-
-
-# Create Users With List Input
-
-Creates list of users with given input array
-
-```ruby
-def create_users_with_list_input(body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Array<User>`](../../doc/models/user.md) | Body, Required | List of user object |
-
-## Response Type
-
-`void`
-
-## Example Usage
-
-```ruby
-body = [
-  User.new(
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil,
-    nil
-  )
-]
-
-user_controller.create_users_with_list_input(body)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | successful operation | `APIException` |
-
-
-# Update User
-
-This can only be done by the logged in user.
-
-```ruby
-def update_user(username,
-                body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `username` | `String` | Template, Required | name that need to be updated |
-| `body` | [`User`](../../doc/models/user.md) | Body, Required | Updated user object |
-
-## Response Type
-
-`void`
-
-## Example Usage
-
-```ruby
-username = 'username0'
-
-body = User.new(
-  nil,
-  nil,
-  nil,
-  nil,
-  nil,
-  nil,
-  nil,
-  nil
-)
-
-user_controller.update_user(
-  username,
-  body
-)
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Invalid user supplied | `APIException` |
-| 404 | User not found | `APIException` |
 
 
 # Logout User
